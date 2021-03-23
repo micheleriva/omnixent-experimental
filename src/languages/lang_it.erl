@@ -1,0 +1,11 @@
+-module(lang_it).
+
+-export([terms/0]).
+
+terms() ->
+    ["@", "quale @", "perché @", "quando @", "dove @", "come @", "è @", "chi @", "può @",
+     "non è @", "con @", "senza @", "per @", "a @", "da @", "quale @", "@ perché", "@ quando",
+     "@ dove", "@ come", "@ è", "@ chi", "@ può", "@ fa", "@ non fa", "@ con", "@ senza",
+     "@ per", "@ a", "@ da", "@ contro", "@ vs", "@ e", "@ o", "@ a", "@ b", "@ c", "@ d",
+     "@ e", "@ f", "@ g", "@ h", "@ i", "@ j", "@ k", "@ l", "@ m", "@ n", "@ o", "@ p", "@ q",
+     "@ r", "@ s", "@ t", "@ u", "@ v", "@ w", "@ x", "@ y", "@ z"].
