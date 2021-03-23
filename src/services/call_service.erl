@@ -42,14 +42,28 @@ make_request(Service, Term, Country, Language,
     extract_body(Service, Body).
 
 request(Service, Term, Country, Language) ->
-    Terms = get_lang(Language),
-    pmap:pmap(fun (LangTerm) ->
-                      {Term,
-                       LangTerm,
-                       make_request(Service,
-                                    Term,
-                                    Country,
-                                    Language,
-                                    LangTerm)}
-              end,
-              Terms).
+    Cached = cache:lookup_service(Service,
+                                  Term,
+                                  Language,
+                                  Country),
+    case Cached of
+        [] ->
+            Terms = get_lang(Language),
+            Result = pmap:pmap(fun (LangTerm) ->
+                                       {Term,
+                                        LangTerm,
+                                        make_request(Service,
+                                                     Term,
+                                                     Country,
+                                                     Language,
+                                                     LangTerm)}
+                               end,
+                               Terms),
+            cache:insert_service(Service,
+                                 Term,
+                                 Language,
+                                 Country,
+                                 Result),
+            Result;
+        [A] -> A
+    end.
