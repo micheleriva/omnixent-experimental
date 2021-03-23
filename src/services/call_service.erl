@@ -16,7 +16,8 @@ get_lang(fr) -> lang_fr:terms();
 get_lang(it) -> lang_it:terms();
 get_lang(pt) -> lang_pt:terms();
 get_lang(Language) ->
-    throw(Language ++ " language is not available").
+    throw(atom_to_list(Language) ++
+              " language is not available").
 
 get_url(google, Term, Country, Language) ->
     google:format_uri(Term, Country, Language);
@@ -64,6 +65,6 @@ request(Service, Term, Country, Language) ->
                                  Language,
                                  Country,
                                  Result),
-            Result;
+            {key, Result, 86400000};
         [A] -> A
     end.

@@ -1,14 +1,20 @@
 -module(google).
 
--export([collect_values/1, extract_body/1, format_uri/3]).
+-export([collect_values/1,
+         extract_body/1,
+         format_uri/3]).
 
 -import(service_utils, [normalize_service_args/3]).
 
--define(Endpoint, "https://www.google.com/complete/search").
+-define(Endpoint,
+        "https://www.google.com/complete/search").
 
 format_uri(Term, Country, Language) ->
-    {T, _, _, Hl} = normalize_service_args(Term, Country, Language),
-    ?Endpoint ++ "?client=gws-wiz&q=" ++ T ++ "&hl=" ++ Hl.
+    {T, _, _, Hl} = normalize_service_args(Term,
+                                           Country,
+                                           Language),
+    (?Endpoint) ++
+        "?client=gws-wiz&q=" ++ T ++ "&hl=" ++ Hl.
 
 extract_body(Response) ->
     [_, _, ResponseWithoutScriptOpening] =
@@ -19,4 +25,4 @@ extract_body(Response) ->
 
 collect_values(JSONResponse) ->
     [R, _] = JSONResponse,
-    lists:map(fun([H | _]) -> binary_to_list(H) end, R).
+    lists:map(fun ([H | _]) -> binary_to_list(H) end, R).
