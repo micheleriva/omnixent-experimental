@@ -22,12 +22,15 @@ get_lang(Language) ->
 get_url(google, Term, Country, Language) ->
     google:format_uri(Term, Country, Language);
 get_url(youtube, Term, Country, Language) ->
-    youtube:format_uri(Term, Country, Language).
+    youtube:format_uri(Term, Country, Language);
+get_url(bing, Term, Country, Language) ->
+    bing:format_uri(Term, Country, Language).
 
 extract_body(google, Body) ->
     google:collect_values(google:extract_body(Body));
 extract_body(youtube, Body) ->
-    youtube:collect_values(youtube:extract_body(Body)).
+    youtube:collect_values(youtube:extract_body(Body));
+extract_body(bing, Body) -> bing:extract_body(Body).
 
 make_request(Service, Term, Country, Language,
              LangTerm) ->
